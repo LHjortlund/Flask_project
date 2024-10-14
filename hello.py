@@ -4,6 +4,26 @@ from flask import Flask
 app = Flask(__name__)
 
 
+def make_bold(f):
+    def wrapper1():
+        return f'<b>{f()}</b>'
+
+    return wrapper1
+
+
+def make_emphasis(f):
+    def wrapper2():
+        return f'<em>{f()}</em>'
+
+    return wrapper2
+
+
+def make_underlined(f):
+    def wrapper3():
+        return f'<u>{f()}</u>'
+
+    return wrapper3
+
 @app.route('/')
 def index():
     return ('<h1 style="text-align: center">Learning Flask</h1>'
@@ -17,13 +37,16 @@ def about():
 
 
 @app.route('/contact')
+@make_bold
+@make_emphasis
+@make_underlined
 def contact():
-    return '<h3>Contact Us if in need of help</h3>'
+    return '<h1 style="text-align: center">Contact Us if in need of help</h1>'
 
 
 @app.route('/users/<name>')
 def user(name):
-    return "<h3>Welcome {}</h3>".formate(name)
+    return "<h3 >Welcome {}</h3>".formate(name)
 
 
 if __name__ == '__main__':
